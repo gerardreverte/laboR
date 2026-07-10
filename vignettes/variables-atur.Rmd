@@ -1,0 +1,61 @@
+---
+title: "Variables de desagregació de l'atur registrat"
+author: "Gerard Reverté Calvet"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Variables de desagregació de l'atur registrat}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Les quatre funcions d'atur registrat (`descarrega_atur_catalunya()`,
+`descarrega_atur_provincies()`, `descarrega_atur_comarques()` i
+`descarrega_atur_municipis()`) accepten el paràmetre `variables`, amb el
+qual pots desagregar les dades per **una o dues** de les variables
+d'aquesta pàgina. Amb dues variables alhora, el servidor retorna el
+**producte cartesià** de les seves categories (per exemple, cada tram
+d'edat creuat amb cada nacionalitat).
+
+```r
+# Una variable
+descarrega_atur_comarques("Maresme", mes = "202501", variables = "edat_3")
+
+# Dues variables (producte cartesià)
+descarrega_atur_comarques("Maresme", mes = "202501",
+                          variables = c("edat_3", "nacionalitat"))
+```
+
+El **sexe** no és una variable d'aquest llistat: es demana amb el paràmetre
+propi `amb_sexe = TRUE`, i és compatible amb qualsevol de les variables de
+la taula.
+
+Pots consultar aquesta mateixa llista des d'R amb `llistar_variables_atur()`.
+
+## Taula de variables
+
+La columna **clau** és el valor que has de passar al paràmetre `variables`.
+
+| Clau | Variable | Descripció |
+|---|---|---|
+| `edat` | Tram d'edats (11 grups) | Edat en 11 trams detallats, de "Menors de 20 anys" fins a "De 60 anys i més". |
+| `edat_3` | Tram d'edats (3 grups) | Edat en 3 grans grups: menors de 25 anys, de 25 a 44 anys, i de 45 anys i més. |
+| `nacionalitat` | Gran regió de nacionalitat | Nacionalitat agrupada en 11 grans regions del món (Espanya, resta de la UE, Magrib, Amèrica del Sud...). |
+| `ambit_nac` | Àmbit de nacionalitat | Nacionalitat en 4 grups: espanyola, resta de la UE, resta d'Europa i extracomunitària. |
+| `inscripcio` | Temps d'inscripció de la demanda | Antiguitat de la demanda d'ocupació en 9 trams (fins a 3 mesos, de 3 a 6 mesos... més de 24 mesos). Útil per estudiar l'atur de llarga durada. |
+| `formatiu` | Grup de nivell formatiu | Nivell d'estudis assolit per la persona demandant (sense estudis, estudis primaris, secundaris, universitaris...). |
+| `activitat` | Divisió econòmica (CCAE 2009) | Activitat econòmica de la darrera feina, al nivell de divisió (2 dígits) de la Classificació Catalana d'Activitats Econòmiques. És la desagregació sectorial més detallada. |
+| `seccio_econ` | Secció econòmica (CCAE 2009) | Activitat econòmica al nivell de secció (21 lletres, d'Agricultura a Organismes extraterritorials), més "Sense ocupació anterior". |
+| `sector_econ` | Sector econòmic (CCAE 2009) | Activitat econòmica en 4 grans sectors: agricultura, indústria, construcció i serveis (més "Sense ocupació anterior"). |
+| `ocupacio` | Gran grup d'ocupació (CNO 2011) | Ocupació sol·licitada, al nivell de gran grup (10 grups) de la Classificació Nacional d'Ocupacions. |
+| `subgrup_ocp` | Subgrup principal d'ocupació (CNO 2011) | Ocupació sol·licitada al nivell de subgrup principal, més detallat que el gran grup. |
+| `experiencia` | Experiència en l'ocupació demandada | Experiència prèvia en l'ocupació que se sol·licita, en 4 trams. |
+
+## Notes
+
+- Les tres mesures que retornen les funcions (**Atur registrat**,
+  **Demandants no ocupats** i **Demandants d'ocupació**) es desagreguen
+  totes per les variables demanades.
+- En **municipis petits**, com més desagreguis més cel·les cauran sota el
+  secret estadístic (valors d'1 a 3 suprimits, retornats com a `NA`).
+- Les categories amb valor 0 poden no aparèixer al resultat.

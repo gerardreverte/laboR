@@ -1,0 +1,18 @@
+# Fitxers de sessió i historial d'R
+.Rhistory
+.RData
+.Ruserdata
+
+# RStudio
+.Rproj.user/
+*.Rproj
+
+# Artefactes de construcció del paquet
+/doc/
+/Meta/
+*.tar.gz
+laboR.Rcheck/
+
+# Sistema
+.DS_Store
+Thumbs.db

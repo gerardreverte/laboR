@@ -1,0 +1,34 @@
+Package: laboR
+Title: Descarrega de Dades d'Atur Registrat i Contractacio de
+    l'Observatori del Treball i Model Productiu (Generalitat de
+    Catalunya)
+Version: 0.1.0
+Authors@R:
+    person("Gerard", "Reverté Calvet", , "gerardrc@gmail.com", role = c("aut", "cre"))
+Description: Descarrega les dades d'atur registrat, demandants d'ocupacio
+    i contractacio laboral que publica l'Observatori del Treball i Model
+    Productiu de la Generalitat de Catalunya, accedint a la seva API
+    MicroStrategy. Cobreix els ambits de Catalunya, provincies, comarques
+    i municipis, amb series mensuals des del gener de 2011 i multiples
+    variables de desagregacio (sexe, edat, nacionalitat, ocupacio,
+    activitat economica, modalitat de contracte...). Les cel·les subjectes
+    a secret estadistic ("#") es retornen com a NA.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports:
+    dplyr,
+    httr2,
+    jsonlite,
+    readr,
+    stats,
+    utils
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+URL: https://github.com/gerardreverte/laboR
+BugReports: https://github.com/gerardreverte/laboR/issues

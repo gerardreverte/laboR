@@ -1,0 +1,209 @@
+---
+title: "Manual d'ús de laboR"
+author: "Gerard Reverté Calvet"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Manual d'ús de laboR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+# Els exemples no s'executen en construir la vinyeta: toquen el servidor de
+# l'Observatori i requereixen connexió.
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
+```
+
+`laboR` descarrega les dades d'**atur registrat** (i demandes d'ocupació) i
+de **contractació laboral** que publica l'[Observatori del Treball i Model
+Productiu](https://observatoritreball.gencat.cat/) de la Generalitat de
+Catalunya, accedint a la seva API MicroStrategy. Cobreix els àmbits de
+Catalunya, províncies, comarques i municipis, amb sèries mensuals des del
+gener de 2011.
+
+```{r setup}
+library(laboR)
+```
+
+## Conceptes bàsics
+
+Totes les funcions de descàrrega comparteixen tres idees:
+
+- **`mes`**: un o més mesos en format `"AAAAMM"`. Per a un rang:
+
+```{r}
+mesos_2024 <- format(seq(as.Date("2024-01-01"), as.Date("2024-12-01"),
+                         by = "month"), "%Y%m")
+```
+
+- **Territoris en vector**: pots demanar diversos municipis, comarques o
+  províncies alhora, per codi o per nom.
+- **Secret estadístic**: en municipis petits, les cel·les amb valors menors
+  que 4 se suprimeixen (el servidor retorna `"#"`) i el paquet les converteix
+  en `NA`. Les columnes de valors són sempre numèriques.
+
+Les funcions de referència t'ajuden a saber què pots demanar:
+
+```{r}
+llistar_mesos()                       # mesos disponibles (des de 2011)
+obtenir_municipis()                   # els ~950 municipis catalans
+obtenir_comarques()                   # les 43 comarques
+obtenir_provincies()                  # les 4 províncies
+llistar_variables_atur()              # variables de desagregació (atur)
+llistar_variables_contractacio("ett") # variables per tipologia (contractació)
+```
+
+Trobaràs la descripció detallada de cada variable de desagregació als
+articles [Variables de desagregació de l'atur
+registrat](variables-atur.html) i [Variables i tipologies de la
+contractació](variables-contractacio.html).
+
+## Atur registrat
+
+Les quatre funcions retornen l'**atur registrat**, els **demandants no
+ocupats** i els **demandants d'ocupació**:
+
+```{r}
+# Catalunya, un mes
+descarrega_atur_catalunya(mes = "202501")
+
+# Un municipi, tot un any
+descarrega_atur_municipis("08121", mes = mesos_2024)
+
+# Diversos municipis, desagregat per sexe
+descarrega_atur_municipis(c("08121", "08019"), mes = "202501",
+                          amb_sexe = TRUE)
+
+# Comarca desagregada per edat i nacionalitat (màxim 2 variables;
+# el servidor retorna el producte cartesià de les categories)
+descarrega_atur_comarques("Maresme", mes = "202501",
+                          variables = c("edat_3", "nacionalitat"))
+
+# Província per nivell formatiu
+descarrega_atur_provincies("Girona", mes = "202501", variables = "formatiu")
+```
+
+### Paràmetres de les funcions d'atur
+
+Les quatre funcions comparteixen els mateixos paràmetres; només canvia el
+primer argument (el territori), que no existeix en el cas de Catalunya:
+
+```{r}
+descarrega_atur_municipis(
+  municipis,            # només a la funció de municipis
+  mes,
+  amb_sexe  = FALSE,
+  variables = NULL,
+  verbose   = TRUE
+)
+```
+
+| Paràmetre | Descripció |
+|---|---|
+| `municipis` / `comarques` / `provincies` | Un o més territoris, per **codi** o per **nom**. Municipis: codi INE de 5 dígits (ex. `"08121"`) o nom (ex. `"Mataró"`); el codi és més robust. Comarques: nom (ex. `"Maresme"`) o codi de 2 dígits. Províncies: `"Barcelona"`, `"Girona"`, `"Lleida"`, `"Tarragona"` o codi INE de 2 dígits. La funció de Catalunya no té aquest paràmetre. |
+| `mes` | Mes o vector de mesos en format `"AAAAMM"` (ex. `"202501"`). Disponibles des del gener de 2011 (`llistar_mesos()`). |
+| `amb_sexe` | Si `TRUE`, desagrega les dades per sexe (afegeix la columna `Sexe`). Per defecte `FALSE`. |
+| `variables` | Vector amb **una o dues** claus de variable de desagregació (vegeu [Variables de desagregació de l'atur registrat](variables-atur.html) o `llistar_variables_atur()`). Amb dues variables, el servidor retorna el producte cartesià de les categories. Per defecte `NULL` (sense desagregació). |
+| `verbose` | Si `TRUE` (per defecte), mostra missatges de progrés durant la descàrrega. |
+
+Totes retornen un `data.frame` amb les columnes numèriques `Atur registrat`,
+`Demandants no ocupats` i `Demandants d'ocupació`. Trobaràs el detall complet
+de cada funció a la [Referència](../reference/index.html).
+
+## Contractació laboral
+
+La contractació té quatre **tipologies**: `"total"` (per defecte), `"ett"`
+(contractes d'Empreses de Treball Temporal), `"estrangeres"` (persones
+estrangeres) i `"estrangeres_regio"` (estrangeres per gran regió de
+nacionalitat). Cada tipologia admet un conjunt diferent de variables
+(consulta'l amb `llistar_variables_contractacio()`).
+
+La desagregació es fa amb dues posicions:
+
+- `variable_files`: les categories apareixen com a **files**.
+- `variable_cols`: les categories apareixen com a **columnes**
+  (`Contractes_<categoria>`). Només per a variables amb posició `"ambdos"`.
+
+```{r}
+# Total de contractes d'un municipi
+descarrega_contractacio_municipis("08121", mes = "202501")
+
+# Per jornada (files) i sexe (columnes): creuament
+descarrega_contractacio_municipis("08121", mes = "202501",
+                                  variable_files = "jornada",
+                                  variable_cols  = "sexe")
+
+# Contractes ETT per modalitat
+descarrega_contractacio_catalunya(mes = "202501", tipologia = "ett",
+                                  variable_files = "modalitat_ett")
+
+# Persones estrangeres per gran regió de nacionalitat
+descarrega_contractacio_comarques("Maresme", mes = "202501",
+                                  tipologia = "estrangeres_regio")
+
+# Màxima desagregació: divisió econòmica (només files)
+descarrega_contractacio_municipis("08019", mes = "202501",
+                                  variable_files = "divisio_economica")
+```
+
+Si demanes a `variable_cols` una variable que només admet files (com
+`gran_grup_ocupacio`), el paquet intercanvia les posicions internament i
+transposa el resultat, de manera que obtens igualment les categories en
+columnes.
+
+### Paràmetres de les funcions de contractació
+
+Com en l'atur, les quatre funcions comparteixen els paràmetres, i la de
+Catalunya no té el paràmetre de territori:
+
+```{r}
+descarrega_contractacio_municipis(
+  municipis,               # només a la funció de municipis
+  mes,
+  tipologia      = "total",
+  variable_files = NULL,
+  variable_cols  = NULL,
+  verbose        = TRUE
+)
+```
+
+| Paràmetre | Descripció |
+|---|---|
+| `municipis` / `comarques` / `provincies` | Un o més territoris, per codi o per nom (mateix funcionament que a l'atur). Grups de més de 20 municipis es gestionen automàticament per lots. |
+| `mes` | Mes o vector de mesos en format `"AAAAMM"`. Qualsevol nombre de mesos: el paquet fa lots de 12 (el màxim per crida de l'API). |
+| `tipologia` | Univers de contractes: `"total"` (per defecte), `"ett"` (Empreses de Treball Temporal), `"estrangeres"` (persones estrangeres) o `"estrangeres_regio"` (estrangeres per gran regió de nacionalitat). |
+| `variable_files` | Clau opcional d'una variable de desagregació: les categories apareixen com a **files** (vegeu [Variables i tipologies de la contractació](variables-contractacio.html) o `llistar_variables_contractacio()`). |
+| `variable_cols` | Clau opcional d'una segona variable: les categories apareixen com a **columnes** (`Contractes_<categoria>`). Si la variable només admet files, el paquet la intercanvia i transposa el resultat automàticament. |
+| `verbose` | Si `TRUE` (per defecte), mostra missatges de progrés durant la descàrrega. |
+
+Totes retornen un `data.frame` amb la columna numèrica `Contractes` (o
+`Contractes_<categoria>` en creuaments). Trobaràs el detall complet de cada
+funció a la [Referència](../reference/index.html).
+
+## Estructura dels resultats
+
+Tots els resultats comparteixen les mateixes columnes d'identificació:
+
+| Columna | Contingut |
+|---|---|
+| `Mes` | codi del mes (numèric, ex. `202501`) |
+| `Mes_etiqueta` | etiqueta (ex. `"gener de 2025"`) |
+| `Municipi` / `Comarca` / `Provincia` | codi del territori (character) |
+| `Municipi_nom` / `Comarca_nom` / `Provincia_nom` | nom del territori |
+| `<variable>` (i `<variable>_codi` si en té) | categories de desagregació |
+
+I les columnes de valors: `Atur registrat`, `Demandants no ocupats` i
+`Demandants d'ocupació` per a l'atur; `Contractes` (o
+`Contractes_<categoria>` en creuaments) per a la contractació.
+
+## Bones pràctiques i limitacions
+
+- **Sigues moderat amb el volum de crides**: cada mes × municipi és una crida
+  al servidor públic de l'Observatori. Per a descàrregues massives, fes-les
+  fora d'hores punta i amb pauses.
+- **Els mesos recents poden no estar publicats**: les dades surten amb un
+  cert decalatge; un mes sense dades genera un avís i s'omet del resultat.
+- **Secret estadístic**: els `NA` en municipis petits indiquen valors d'1 a 3
+  (atur) o menors que 4 (contractació) suprimits pel servidor, no absència
+  de dades. Les categories amb valor 0 poden no aparèixer al resultat.

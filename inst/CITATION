@@ -1,0 +1,23 @@
+citHeader("Per citar 'laboR' en publicacions, utilitzeu:")
+
+bibentry(
+  bibtype     = "Manual",
+  title       = "laboR: descàrrega de dades d'atur registrat i contractació de l'Observatori del Treball i Model Productiu (Generalitat de Catalunya)",
+  author      = person("Gerard", "Reverté Calvet"),
+  year        = "2026",
+  note        = "R package version 0.1.0",
+  url         = "https://github.com/gerardreverte/laboR",
+  textVersion = paste(
+    "Reverté Calvet, G. (2026).",
+    "laboR: descàrrega de dades d'atur registrat i contractació de",
+    "l'Observatori del Treball i Model Productiu (Generalitat de Catalunya).",
+    "R package version 0.1.0.",
+    "https://github.com/gerardreverte/laboR"
+  )
+)
+
+citFooter(paste(
+  "Les dades pertanyen a l'Observatori del Treball i Model Productiu",
+  "(Generalitat de Catalunya): https://observatoritreball.gencat.cat/.",
+  "Citeu-ne sempre la font."
+))

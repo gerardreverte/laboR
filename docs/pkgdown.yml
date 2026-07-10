@@ -1,0 +1,12 @@
+pandoc: 3.8.3
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  laboR: laboR.html
+  variables-atur: variables-atur.html
+  variables-contractacio: variables-contractacio.html
+last_built: 2026-07-10T08:16Z
+urls:
+  reference: https://gerardreverte.github.io/laboR/reference
+  article: https://gerardreverte.github.io/laboR/articles
+

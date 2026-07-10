@@ -1,0 +1,63 @@
+url: https://gerardreverte.github.io/laboR/
+
+lang: ca
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#c0432c"
+
+home:
+  title: "laboR · Atur registrat i contractació de Catalunya"
+  description: >
+    Paquet d'R per descarregar les dades d'atur registrat i contractació
+    laboral de l'Observatori del Treball i Model Productiu de la
+    Generalitat de Catalunya.
+
+navbar:
+  structure:
+    left: [intro, articles, reference, news]
+    right: [search, github]
+
+articles:
+- title: "Variables de desagregació"
+  navbar: ~
+  contents:
+  - variables-atur
+  - variables-contractacio
+
+reference:
+- title: "Atur registrat"
+  desc: >
+    Atur registrat, demandants no ocupats i demandants d'ocupació,
+    per àmbit territorial.
+  contents:
+  - descarrega_atur_catalunya
+  - descarrega_atur_provincies
+  - descarrega_atur_comarques
+  - descarrega_atur_municipis
+
+- title: "Contractació laboral"
+  desc: >
+    Contractes registrats (total, ETT, persones estrangeres),
+    per àmbit territorial.
+  contents:
+  - descarrega_contractacio_catalunya
+  - descarrega_contractacio_provincies
+  - descarrega_contractacio_comarques
+  - descarrega_contractacio_municipis
+
+- title: "Funcions de referència"
+  desc: >
+    Llistes de mesos, territoris i variables de desagregació disponibles.
+  contents:
+  - llistar_mesos
+  - llistar_variables_atur
+  - llistar_variables_contractacio
+  - obtenir_provincies
+  - obtenir_comarques
+  - obtenir_municipis
+
+- title: "El paquet"
+  contents:
+  - laboR-package

@@ -1,0 +1,106 @@
+---
+title: "Variables i tipologies de la contractació"
+author: "Gerard Reverté Calvet"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Variables i tipologies de la contractació}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Les quatre funcions de contractació (`descarrega_contractacio_catalunya()`,
+`descarrega_contractacio_provincies()`, `descarrega_contractacio_comarques()`
+i `descarrega_contractacio_municipis()`) tenen dos nivells de selecció:
+
+1. La **tipologia** (paràmetre `tipologia`): quin univers de contractes vols.
+2. Les **variables de desagregació** (paràmetres `variable_files` i
+   `variable_cols`): com vols creuar-los.
+
+## Tipologies
+
+El paràmetre `tipologia` admet quatre valors:
+
+| Valor de `tipologia` | Univers de contractes |
+|---|---|
+| `"total"` *(per defecte)* | Tots els contractes registrats. |
+| `"ett"` | Contractes gestionats per **Empreses de Treball Temporal**. |
+| `"estrangeres"` | Contractes a **persones estrangeres**. |
+| `"estrangeres_regio"` | Contractes a persones estrangeres, desagregats automàticament per **gran regió de nacionalitat**. |
+
+```r
+# Contractes ETT d'un municipi
+descarrega_contractacio_municipis("08121", mes = "202501", tipologia = "ett")
+
+# Contractes a persones estrangeres per gran regió de nacionalitat
+descarrega_contractacio_comarques("Maresme", mes = "202501",
+                                  tipologia = "estrangeres_regio")
+```
+
+## Com es desagreguen: files i columnes
+
+A diferència de l'atur, aquí les dues variables de desagregació tenen
+posicions diferents:
+
+- **`variable_files`**: les categories apareixen com a **files** del
+  resultat.
+- **`variable_cols`**: les categories apareixen com a **columnes**
+  (`Contractes_<categoria>`). Només hi pots posar variables amb posició
+  `"ambdós"`.
+
+```r
+# Jornada (files) creuada amb sexe (columnes)
+descarrega_contractacio_municipis("08121", mes = "202501",
+                                  variable_files = "jornada",
+                                  variable_cols  = "sexe")
+```
+
+Si poses a `variable_cols` una variable que només admet files, el paquet
+intercanvia les posicions internament i transposa el resultat.
+
+Pots consultar les variables disponibles per a cada tipologia des d'R amb
+`llistar_variables_contractacio("total")`, `llistar_variables_contractacio("ett")`,
+etc.
+
+## Taula de variables
+
+La columna **clau** és el valor que has de passar a `variable_files` (o a
+`variable_cols`, si la posició és "ambdós"). La darrera columna indica amb
+quines tipologies es pot utilitzar cada variable.
+
+| Clau | Descripció | Posició | Tipologies |
+|---|---|---|---|
+| `sexe` | Sexe (home / dona). | ambdós | totes |
+| `jornada` | Tipus de jornada: temps complet, temps parcial i fixos discontinus. | ambdós | `total`, `ett`, `estrangeres` |
+| `durada_mesos` | Durada del contracte en 9 trams mensuals (inclou "Indefinit" i "Indeterminada"). | ambdós | `total`, `estrangeres` |
+| `durada_dies` | Durada del contracte en trams de dies, pensada per als contractes curts. | ambdós | `ett` |
+| `modalitat_ett` | Modalitat del contracte ETT (obra o servei, circumstàncies de la producció...). | ambdós | `ett` |
+| `nivell_formatiu` | Nivell d'estudis de la persona contractada (10 grups). | només files | `total`, `ett`, `estrangeres` |
+| `grandaria_compte` | Grandària de l'empresa contractant (tram de treballadors del compte de cotització, 11 trams). | només files | `total` |
+| `indefinit_temporal` | Contracte indefinit o temporal. | ambdós | `estrangeres_regio` |
+| `indefinit_temporal_tot` | Contracte indefinit o temporal. | ambdós | `total`, `estrangeres` |
+| `modalitat` | Modalitat de contracte (indefinit ordinari, conversió, eventual, interinitat, formació...). | ambdós | `total`, `estrangeres` |
+| `edat_2` | Edat en 2 trams: menors de 25 anys / de 25 anys i més. | ambdós | `total`, `ett`, `estrangeres` |
+| `edat_3` | Edat en 3 trams: menors de 25 / de 25 a 44 / de 45 i més. | ambdós | `total`, `ett`, `estrangeres` |
+| `edat_5` | Edat en 5 trams. | ambdós | `total`, `ett`, `estrangeres` |
+| `edat_11` | Edat en 11 trams detallats. | ambdós | `total`, `ett`, `estrangeres` |
+| `edat_2_pgr` | Edat en 2 trams. | ambdós | `estrangeres_regio` |
+| `edat_3_pgr` | Edat en 3 trams. | ambdós | `estrangeres_regio` |
+| `gran_grup_ocupacio` | Ocupació contractada al nivell de gran grup (10 grups, CCO 2011). | només files | `total`, `ett`, `estrangeres` |
+| `gran_grup_ocupacio_pgr` | Ocupació contractada al nivell de gran grup (CCO 2011). | només files | `estrangeres_regio` |
+| `subgrup_ocupacio` | Ocupació contractada al nivell de subgrup principal (CCO 2011), més detallat. | només files | `total`, `ett`, `estrangeres` |
+| `sector_economic` | Activitat econòmica de l'empresa en 4 grans sectors: agricultura, indústria, construcció i serveis (CCAE 2009). | només files | `total`, `estrangeres` |
+| `seccio_economica` | Activitat econòmica al nivell de secció (21 lletres, CCAE 2009). | només files | `total`, `estrangeres` |
+| `divisio_economica` | Activitat econòmica al nivell de divisió (2 dígits, CCAE 2009). És la màxima desagregació sectorial. | només files | `total`, `estrangeres` |
+
+Fixa't que algunes variables tenen una versió específica per a la tipologia
+`estrangeres_regio` (amb el sufix `_pgr`): són la mateixa desagregació, però
+el servidor les tracta com a selectors diferents.
+
+## Límits tècnics
+
+- Màxim **una variable a files i una a columnes** simultàniament.
+- Màxim **12 mesos** i **20 municipis** per crida al servidor; el paquet ho
+  gestiona automàticament fent crides per lots.
+- En municipis petits, les cel·les amb menys de 4 contractes se suprimeixen
+  per **secret estadístic** i es retornen com a `NA`.

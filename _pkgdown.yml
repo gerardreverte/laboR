@@ -18,6 +18,21 @@ navbar:
   structure:
     left: [intro, articles, reference, news]
     right: [search, github]
+  components:
+    intro:
+      text: Comença aquí
+      href: articles/laboR.html
+    reference:
+      text: Referència
+      href: reference/index.html
+
+footer:
+  structure:
+    left: desenvolupat
+    right: creada
+  components:
+    desenvolupat: "Desenvolupat per Gerard Reverté Calvet."
+    creada: "Web creada amb [pkgdown](https://pkgdown.r-lib.org/)."
 
 articles:
 - title: "Variables de desagregació"

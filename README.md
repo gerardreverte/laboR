@@ -1,6 +1,10 @@
 # laboR <img src="man/figures/logo.png" align="right" height="139" alt="Logotip de laboR" />
 
 <!-- badges: start -->
+[![Versió](https://img.shields.io/github/r-package/v/gerardreverte/laboR?label=versi%C3%B3&color=c0432c)](https://github.com/gerardreverte/laboR)
+[![Llicència: MIT](https://img.shields.io/badge/llic%C3%A8ncia-MIT-4a4a4a.svg)](https://github.com/gerardreverte/laboR/blob/main/LICENSE.md)
+[![Manual](https://img.shields.io/badge/manual-web%20del%20paquet-c0432c)](https://gerardreverte.github.io/laboR/)
+[![Dades](https://img.shields.io/badge/dades-Observatori%20del%20Treball-4a4a4a)](https://observatoritreball.gencat.cat/)
 <!-- badges: end -->
 
 **[CA]** `laboR` descarrega les dades d'**atur registrat** i de

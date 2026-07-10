@@ -87,3 +87,9 @@ citation("laboR")
 #> (Generalitat de Catalunya). R package version 0.1.0.
 #> https://github.com/gerardreverte/laboR
 ```
+
+---
+
+*El desenvolupament d'aquest paquet ha comptat amb l'assistència de
+Claude Code (Anthropic). / This package was developed with the
+assistance of Claude Code (Anthropic).*

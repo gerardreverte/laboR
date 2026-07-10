@@ -2,7 +2,7 @@ Package: laboR
 Title: Descarrega de Dades d'Atur Registrat i Contractacio de
     l'Observatori del Treball i Model Productiu (Generalitat de
     Catalunya)
-Version: 0.1.0
+Version: 0.1.1
 Authors@R:
     person("Gerard", "Reverté Calvet", , "gerardrc@gmail.com", role = c("aut", "cre"))
 Description: Descarrega les dades d'atur registrat, demandants d'ocupacio

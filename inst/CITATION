@@ -5,13 +5,13 @@ bibentry(
   title       = "laboR: descàrrega de dades d'atur registrat i contractació de l'Observatori del Treball i Model Productiu (Generalitat de Catalunya)",
   author      = person("Gerard", "Reverté Calvet"),
   year        = "2026",
-  note        = "R package version 0.1.0",
+  note        = "R package version 0.1.1",
   url         = "https://github.com/gerardreverte/laboR",
   textVersion = paste(
     "Reverté Calvet, G. (2026).",
     "laboR: descàrrega de dades d'atur registrat i contractació de",
     "l'Observatori del Treball i Model Productiu (Generalitat de Catalunya).",
-    "R package version 0.1.0.",
+    "R package version 0.1.1.",
     "https://github.com/gerardreverte/laboR"
   )
 )

@@ -84,7 +84,7 @@ if possible, cite the package:*
 citation("laboR")
 #> Reverté Calvet, G. (2026). laboR: descàrrega de dades d'atur registrat
 #> i contractació de l'Observatori del Treball i Model Productiu
-#> (Generalitat de Catalunya). R package version 0.1.0.
+#> (Generalitat de Catalunya). R package version 0.1.1.
 #> https://github.com/gerardreverte/laboR
 ```
 

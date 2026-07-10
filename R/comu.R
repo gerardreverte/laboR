@@ -49,6 +49,9 @@
 .lab_login <- function(dossier_id, verbose = FALSE) {
   # Login anònim (loginMode=8), captura de cookies i creació de la instància
   # del dossier. Retorna: list(auth_token, instance_id, cookies)
+  inc <- tryCatch(.lab_versions_incompatibles(), error = function(e) NULL)
+  if (!is.null(inc)) stop(.lab_missatge_incompatibilitat(inc), call. = FALSE)
+
   if (verbose) message("Fent login anonim a MicroStrategy (loginMode=8)...")
 
   resp_login <- httr2::request(paste0(.LAB_BASE_URL, "/api/auth/login")) |>

@@ -31,7 +31,9 @@ subs <- c(
   "Page not found (404)"      = "Pàgina no trobada (404)",
   ">Maintainer<"              = ">Mantenidor<",
   "<strong>Maintainer</strong>" = "<strong>Mantenidor</strong>",
-  "Author, maintainer"        = "Autor, mantenidor"
+  "Author, maintainer"        = "Autor, mantenidor",
+  ">Changelog<"               = ">Historial de canvis<",
+  "Changelog"                 = "Historial de canvis"
 )
 
 fitxers <- list.files("docs", pattern = "\\.html$",

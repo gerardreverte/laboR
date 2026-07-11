@@ -90,8 +90,31 @@ Les quatre funcions comparteixen els mateixos paràmetres; només canvia el
 primer argument (el territori), que no existeix en el cas de Catalunya:
 
 ```{r}
+descarrega_atur_catalunya(
+  mes,
+  amb_sexe  = FALSE,
+  variables = NULL,
+  verbose   = TRUE
+)
+
+descarrega_atur_provincies(
+  provincies,
+  mes,
+  amb_sexe  = FALSE,
+  variables = NULL,
+  verbose   = TRUE
+)
+
+descarrega_atur_comarques(
+  comarques,
+  mes,
+  amb_sexe  = FALSE,
+  variables = NULL,
+  verbose   = TRUE
+)
+
 descarrega_atur_municipis(
-  municipis,            # només a la funció de municipis
+  municipis,
   mes,
   amb_sexe  = FALSE,
   variables = NULL,
@@ -158,8 +181,34 @@ Com en l'atur, les quatre funcions comparteixen els paràmetres, i la de
 Catalunya no té el paràmetre de territori:
 
 ```{r}
+descarrega_contractacio_catalunya(
+  mes,
+  tipologia      = "total",
+  variable_files = NULL,
+  variable_cols  = NULL,
+  verbose        = TRUE
+)
+
+descarrega_contractacio_provincies(
+  provincies,
+  mes,
+  tipologia      = "total",
+  variable_files = NULL,
+  variable_cols  = NULL,
+  verbose        = TRUE
+)
+
+descarrega_contractacio_comarques(
+  comarques,
+  mes,
+  tipologia      = "total",
+  variable_files = NULL,
+  variable_cols  = NULL,
+  verbose        = TRUE
+)
+
 descarrega_contractacio_municipis(
-  municipis,               # només a la funció de municipis
+  municipis,
   mes,
   tipologia      = "total",
   variable_files = NULL,

@@ -168,8 +168,31 @@ d’ocupació</strong>:</p>
 canvia el primer argument (el territori), que no existeix en el cas de
 Catalunya:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/descarrega_atur_municipis.html">descarrega_atur_municipis</a></span><span class="op">(</span></span>
-<span>  <span class="va">municipis</span>,            <span class="co"># només a la funció de municipis</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/descarrega_atur_catalunya.html">descarrega_atur_catalunya</a></span><span class="op">(</span></span>
+<span>  <span class="va">mes</span>,</span>
+<span>  amb_sexe  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variables <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose   <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_atur_provincies.html">descarrega_atur_provincies</a></span><span class="op">(</span></span>
+<span>  <span class="va">provincies</span>,</span>
+<span>  <span class="va">mes</span>,</span>
+<span>  amb_sexe  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variables <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose   <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_atur_comarques.html">descarrega_atur_comarques</a></span><span class="op">(</span></span>
+<span>  <span class="va">comarques</span>,</span>
+<span>  <span class="va">mes</span>,</span>
+<span>  amb_sexe  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  variables <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose   <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_atur_municipis.html">descarrega_atur_municipis</a></span><span class="op">(</span></span>
+<span>  <span class="va">municipis</span>,</span>
 <span>  <span class="va">mes</span>,</span>
 <span>  amb_sexe  <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  variables <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -281,8 +304,34 @@ igualment les categories en columnes.</p>
 <p>Com en l’atur, les quatre funcions comparteixen els paràmetres, i la
 de Catalunya no té el paràmetre de territori:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/descarrega_contractacio_municipis.html">descarrega_contractacio_municipis</a></span><span class="op">(</span></span>
-<span>  <span class="va">municipis</span>,               <span class="co"># només a la funció de municipis</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/descarrega_contractacio_catalunya.html">descarrega_contractacio_catalunya</a></span><span class="op">(</span></span>
+<span>  <span class="va">mes</span>,</span>
+<span>  tipologia      <span class="op">=</span> <span class="st">"total"</span>,</span>
+<span>  variable_files <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  variable_cols  <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose        <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_contractacio_provincies.html">descarrega_contractacio_provincies</a></span><span class="op">(</span></span>
+<span>  <span class="va">provincies</span>,</span>
+<span>  <span class="va">mes</span>,</span>
+<span>  tipologia      <span class="op">=</span> <span class="st">"total"</span>,</span>
+<span>  variable_files <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  variable_cols  <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose        <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_contractacio_comarques.html">descarrega_contractacio_comarques</a></span><span class="op">(</span></span>
+<span>  <span class="va">comarques</span>,</span>
+<span>  <span class="va">mes</span>,</span>
+<span>  tipologia      <span class="op">=</span> <span class="st">"total"</span>,</span>
+<span>  variable_files <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  variable_cols  <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verbose        <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/descarrega_contractacio_municipis.html">descarrega_contractacio_municipis</a></span><span class="op">(</span></span>
+<span>  <span class="va">municipis</span>,</span>
 <span>  <span class="va">mes</span>,</span>
 <span>  tipologia      <span class="op">=</span> <span class="st">"total"</span>,</span>
 <span>  variable_files <span class="op">=</span> <span class="cn">NULL</span>,</span>

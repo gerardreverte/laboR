@@ -2,8 +2,7 @@
 #'
 #' Descarrega les dades d'atur registrat, demandants d'ocupació i
 #' contractació laboral que publica l'Observatori del Treball i Model
-#' Productiu de la Generalitat de Catalunya, accedint a la seva API
-#' MicroStrategy.
+#' Productiu de la Generalitat de Catalunya.
 #'
 #' @section Funcions principals:
 #' * Atur registrat: [descarrega_atur_catalunya()],

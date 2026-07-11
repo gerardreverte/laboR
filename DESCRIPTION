@@ -7,8 +7,8 @@ Authors@R:
     person("Gerard", "Reverté Calvet", , "gerardrc@gmail.com", role = c("aut", "cre"))
 Description: Descarrega les dades d'atur registrat, demandants d'ocupacio
     i contractacio laboral que publica l'Observatori del Treball i Model
-    Productiu de la Generalitat de Catalunya, accedint a la seva API
-    MicroStrategy. Cobreix els ambits de Catalunya, provincies, comarques
+    Productiu de la Generalitat de Catalunya. Cobreix els ambits de
+    Catalunya, provincies, comarques
     i municipis, amb series mensuals des del gener de 2011 i multiples
     variables de desagregacio (sexe, edat, nacionalitat, ocupacio,
     activitat economica, modalitat de contracte...). Les cel·les subjectes

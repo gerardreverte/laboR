@@ -18,7 +18,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>", eval = FALSE)
 `laboR` descarrega les dades d'**atur registrat** (i demandes d'ocupació) i
 de **contractació laboral** que publica l'[Observatori del Treball i Model
 Productiu](https://observatoritreball.gencat.cat/) de la Generalitat de
-Catalunya, accedint a la seva API MicroStrategy. Cobreix els àmbits de
+Catalunya. Cobreix els àmbits de
 Catalunya, províncies, comarques i municipis, amb sèries mensuals des del
 gener de 2011.
 
